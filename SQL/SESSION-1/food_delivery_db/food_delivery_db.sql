@@ -254,3 +254,13 @@ SELECT * FROM restaurants;
 SELECT *
 FROM restaurants
 WHERE rating >= 4.5;
+
+-- SESSION 4 --
+
+UPDATE restaurants SET restaurant_name = 'Sunrise Cafe' WHERE restaurant_id = 1;
+UPDATE restaurants SET restaurant_name = 'Chai Point Cafe' WHERE restaurant_id = 5;
+UPDATE restaurants SET restaurant_name = 'Green Leaf Cafe' WHERE restaurant_id = 7;
+
+SELECT *
+FROM restaurants
+WHERE restaurant_name LIKE '%Cafe';
