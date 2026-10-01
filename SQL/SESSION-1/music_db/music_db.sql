@@ -217,3 +217,43 @@ SELECT *
 FROM users
 WHERE NOT city = 'Ahmedabad'
   AND followers > 1000;
+  
+  
+-- SESSION 4 --
+
+SELECT *
+FROM users
+WHERE city IN ('Ahmedabad', 'Surat', 'Vadodara');
+
+select * from songs;
+
+ALTER TABLE Songs ADD artist_name VARCHAR(100);
+
+UPDATE Songs
+SET artist_name = CASE song_title
+    WHEN 'Tum Hi Ho'              THEN 'Arijit Singh'
+    WHEN 'Hum Mar Jayenge'        THEN 'Arijit Singh'
+    WHEN 'Chahun Main Ya Naa'     THEN 'Arijit Singh'
+    WHEN 'Kun Faya Kun'           THEN 'A. R. Rahman'
+    WHEN 'Nadaan Parindey'        THEN 'A. R. Rahman'
+    WHEN 'Dola Re Dola'           THEN 'Shreya Ghoshal'
+    WHEN 'Silsila Ye Chahat Ka'   THEN 'Shreya Ghoshal'
+    WHEN 'Blinding Lights'        THEN 'The Weeknd'
+    WHEN 'Save Your Tears'        THEN 'The Weeknd'
+    WHEN 'Shape of You'           THEN 'Ed Sheeran'
+    WHEN 'Perfect'                THEN 'Ed Sheeran'
+    WHEN 'Blank Space'            THEN 'Taylor Swift'
+    WHEN 'Style'                  THEN 'Taylor Swift'
+    WHEN 'Hello'                  THEN 'Adele'
+    WHEN 'Someone Like You'       THEN 'Adele'
+    WHEN 'Just the Way You Are'   THEN 'Bruno Mars'
+    WHEN 'Grenade'                THEN 'Bruno Mars'
+    WHEN 'Born to Shine'          THEN 'Diljit Dosanjh'
+    WHEN 'Lemonade'               THEN 'Diljit Dosanjh'
+    WHEN 'Second Hand Jawaani'    THEN 'Mika Singh'
+    ELSE artist_name
+END;
+
+SELECT *
+FROM songs
+WHERE artist_name LIKE '%ar%';

@@ -29,3 +29,10 @@ SELECT *
 FROM products
 WHERE category <> 'Electronics'
    OR price < 500;
+   
+
+-- SESSION 4 --
+
+SELECT *
+FROM products
+WHERE price BETWEEN 500 AND 1500;
