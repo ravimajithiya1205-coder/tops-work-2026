@@ -247,3 +247,10 @@ VALUES
 
 SELECT name, rating
 FROM zomato_reviews;
+
+SELECT * FROM restaurants;
+
+-- SESSION 3 --
+SELECT *
+FROM restaurants
+WHERE rating >= 4.5;

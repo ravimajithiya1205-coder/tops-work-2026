@@ -174,3 +174,46 @@ SELECT
     movie_name AS 'Title',
     release_year AS 'Year Released'
 FROM movies;
+
+-- SESSION 3 --
+SELECT *
+FROM movies
+WHERE release_year > 2020
+  AND genre = 'Action';
+  
+ALTER TABLE users ADD city VARCHAR(50);
+
+UPDATE users SET city = 'Ahmedabad' WHERE user_id = 1;
+UPDATE users SET city = 'Mumbai' WHERE user_id = 2;
+UPDATE users SET city = 'Delhi' WHERE user_id = 3;
+UPDATE users SET city = 'Bhavnagar' WHERE user_id = 4;
+UPDATE users SET city = 'Surat' WHERE user_id = 5;
+UPDATE users SET city = 'Ahmedabad' WHERE user_id = 6;
+UPDATE users SET city = 'Bhavnagar' WHERE user_id = 7;
+UPDATE users SET city = 'Surat' WHERE user_id = 8;
+UPDATE users SET city = 'Ahmedabad' WHERE user_id = 9;
+UPDATE users SET city = 'Bharuch' WHERE user_id = 10;
+
+
+UPDATE users SET country = 'India' WHERE user_id = 6;
+UPDATE users SET country = 'India' WHERE user_id = 7;
+
+ALTER TABLE users ADD followers INT;
+  
+UPDATE users SET followers = 1500 WHERE user_id = 1;
+UPDATE users SET followers = 500 WHERE user_id = 2;
+UPDATE users SET followers = 1200 WHERE user_id = 3;
+UPDATE users SET followers = 1100 WHERE user_id = 4;
+UPDATE users SET followers = 1000 WHERE user_id = 5;
+UPDATE users SET followers = 900 WHERE user_id = 6;
+UPDATE users SET followers = 1500 WHERE user_id = 7;
+UPDATE users SET followers = 1400 WHERE user_id = 8;
+UPDATE users SET followers = 1900 WHERE user_id = 9;
+UPDATE users SET followers = 1400 WHERE user_id = 10;
+
+select * from users;
+  
+SELECT *
+FROM users
+WHERE NOT city = 'Ahmedabad'
+  AND followers > 1000;
