@@ -141,3 +141,36 @@ VALUES
 (6, 'Morning Music', '2025-05-10', FALSE),
 (8, 'Travel Playlist', '2025-06-20', TRUE),
 (10, 'Best of 2025', '2025-08-20', TRUE);
+
+
+-- Session-2 --
+
+CREATE TABLE movies (
+    movie_id INT PRIMARY KEY AUTO_INCREMENT,
+    movie_name VARCHAR(150) NOT NULL,
+    release_year YEAR,
+    genre VARCHAR(50),
+    language VARCHAR(30),
+    rating DECIMAL(2,1)
+);
+
+INSERT INTO movies
+(movie_name, release_year, genre, language, rating)
+VALUES
+('3 Idiots', 2009, 'Comedy Drama', 'Hindi', 8.4),
+('Dangal', 2016, 'Sports Drama', 'Hindi', 8.3),
+('Jawan', 2023, 'Action', 'Hindi', 7.0),
+('Pathaan', 2023, 'Action', 'Hindi', 5.9),
+('The Dark Knight', 2008, 'Action', 'English', 9.0),
+('Inception', 2010, 'Sci-Fi', 'English', 8.8),
+('Interstellar', 2014, 'Sci-Fi', 'English', 8.7),
+('Titanic', 1997, 'Romance', 'English', 7.9),
+('Avatar', 2009, 'Sci-Fi', 'English', 7.8),
+('Avengers: Endgame', 2019, 'Action', 'English', 8.4);
+
+select * from movies;
+
+SELECT
+    movie_name AS 'Title',
+    release_year AS 'Year Released'
+FROM movies;

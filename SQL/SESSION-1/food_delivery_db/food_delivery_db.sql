@@ -217,3 +217,33 @@ VALUES
 (13, 'UPI', 'Paid', '2025-09-08 19:41:00', 399.00),
 (14, 'UPI', 'Paid', '2025-09-09 12:16:00', 380.00),
 (15, 'UPI', 'Refunded', '2025-09-10 20:31:00', 265.00);
+
+-- Session 2 --
+
+CREATE TABLE zomato_reviews (
+    review_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    rating DECIMAL(2,1),
+    city VARCHAR(50),
+    review_text VARCHAR(255),
+    review_date DATE
+);
+
+INSERT INTO zomato_reviews
+(name, rating, city, review_text, review_date)
+VALUES
+('Spice Garden', 4.5, 'Ahmedabad', 'Great food and service', '2025-09-01'),
+('Pizza Hub', 4.2, 'Ahmedabad', 'Good pizza and quick delivery', '2025-09-02'),
+('South Bowl', 4.4, 'Ahmedabad', 'Tasty South Indian food', '2025-09-03'),
+('Green Leaf', 4.6, 'Vadodara', 'Fresh and healthy meals', '2025-09-04'),
+('Punjabi Tadka', 4.1, 'Surat', 'Good Punjabi dishes', '2025-09-05'),
+('Burger Point', 4.0, 'Gandhinagar', 'Nice burgers', '2025-09-06'),
+('Royal Biryani', 4.7, 'Ahmedabad', 'Excellent biryani', '2025-09-07'),
+('Cafe Corner', 4.3, 'Vadodara', 'Good coffee and snacks', '2025-09-08'),
+('Food Junction', 3.9, 'Ahmedabad', 'Average experience', '2025-09-09'),
+('Urban Kitchen', 4.8, 'Surat', 'Amazing food quality', '2025-09-10');
+
+-- Display only name and rating
+
+SELECT name, rating
+FROM zomato_reviews;
