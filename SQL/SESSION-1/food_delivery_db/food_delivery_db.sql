@@ -248,7 +248,7 @@ VALUES
 SELECT name, rating
 FROM zomato_reviews;
 
-SELECT * FROM restaurants;
+SELECT * FROM payments;
 
 -- SESSION 3 --
 SELECT *
@@ -264,3 +264,15 @@ UPDATE restaurants SET restaurant_name = 'Green Leaf Cafe' WHERE restaurant_id =
 SELECT *
 FROM restaurants
 WHERE restaurant_name LIKE '%Cafe';
+
+-- SESSION 5 --
+
+-- 1. Find unique payment methods -- 
+SELECT DISTINCT payment_method
+FROM payments;
+
+-- 3. 5 most recent order
+SELECT *
+FROM orders
+ORDER BY order_date DESC
+LIMIT 5;
