@@ -36,3 +36,26 @@ WHERE category <> 'Electronics'
 SELECT *
 FROM products
 WHERE price BETWEEN 500 AND 1500;
+
+
+-- SESSION 5 --
+
+ALTER TABLE products ADD sold_count INT;
+
+UPDATE products SET sold_count = 1 WHERE id = 1;
+UPDATE products SET sold_count = 5 WHERE id = 2;
+UPDATE products SET sold_count = 4 WHERE id = 3;
+UPDATE products SET sold_count = 5 WHERE id = 4;
+UPDATE products SET sold_count = 6 WHERE id = 5;
+UPDATE products SET sold_count = 2 WHERE id = 6;
+UPDATE products SET sold_count = 4 WHERE id = 7;
+UPDATE products SET sold_count = 3 WHERE id = 8;
+UPDATE products SET sold_count = 5 WHERE id = 9;
+UPDATE products SET sold_count = 1 WHERE id = 10;
+
+-- 4. Top 10 products by sold count
+
+SELECT name, sold_count
+FROM products
+ORDER BY sold_count DESC
+LIMIT 10;

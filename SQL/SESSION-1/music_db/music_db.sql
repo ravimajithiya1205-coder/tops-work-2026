@@ -257,3 +257,14 @@ END;
 SELECT *
 FROM songs
 WHERE artist_name LIKE '%ar%';
+
+
+SELECT * FROM users;
+
+-- SESSION 5 --
+
+-- 2. Unique cities in alphabetical order
+
+SELECT DISTINCT city
+FROM users
+ORDER BY city ASC;
