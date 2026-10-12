@@ -276,3 +276,17 @@ SELECT *
 FROM orders
 ORDER BY order_date DESC
 LIMIT 5;
+
+-- SESSION 6 --
+
+SELECT * FROM orders;
+
+-- Calculate the total amount spent on food orders --
+SELECT SUM(total_amount) AS total_amount_spent
+FROM orders;
+
+SELECT
+    COUNT(order_id) AS total_orders,
+    ROUND(AVG(total_amount), 2) AS average_order_value,
+    MAX(total_amount) AS highest_order_value
+FROM orders

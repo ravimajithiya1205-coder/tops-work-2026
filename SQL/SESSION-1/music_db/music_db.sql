@@ -268,3 +268,25 @@ SELECT * FROM users;
 SELECT DISTINCT city
 FROM users
 ORDER BY city ASC;
+
+-- SESSION-6 --
+
+SELECT * FROM songs;
+
+-- Count songs added to a artist playlist
+SELECT COUNT(song_id) AS total_songs
+FROM songs
+WHERE artist_id = 1;
+
+-- Calculate the average movie rating rounded to 1 decimal place
+SELECT * FROM movies;
+
+SELECT ROUND(AVG(rating), 1) AS average_rating
+FROM movies;
+
+SELECT * FROM users;
+SELECT
+    MIN(followers) AS minimum_follower,
+    MAX(followers) AS maximum_follower
+FROM users
+WHERE user_id = 1;
