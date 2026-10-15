@@ -290,3 +290,124 @@ SELECT
     MAX(followers) AS maximum_follower
 FROM users
 WHERE user_id = 1;
+
+-- SESSION-7 --
+
+ALTER TABLE movies
+ADD COLUMN box_office_collection DECIMAL(10,2);
+
+-- Sample box office collection values in crore
+UPDATE movies
+SET box_office_collection = CASE movie_id
+    WHEN 1 THEN 12.00
+    WHEN 2 THEN 18.00
+    WHEN 3 THEN 25.00
+    WHEN 4 THEN 15.00
+    WHEN 5 THEN 20.00
+    WHEN 6 THEN 8.00
+    WHEN 7 THEN 14.00
+    WHEN 8 THEN 9.00
+    WHEN 9 THEN 22.00
+    WHEN 10 THEN 30.00
+END
+WHERE movie_id BETWEEN 1 AND 10;
+
+CREATE TABLE playlist_songs (
+    playlist_song_id INT PRIMARY KEY AUTO_INCREMENT,
+    playlist_id INT NOT NULL,
+    song_id INT NOT NULL,
+
+    FOREIGN KEY (playlist_id)
+        REFERENCES playlists(playlist_id),
+
+    FOREIGN KEY (song_id)
+        REFERENCES songs(song_id),
+
+    UNIQUE (playlist_id, song_id)
+);
+
+INSERT INTO playlist_songs (playlist_id, song_id)
+VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8),
+(1, 9),
+(1, 10),
+(1, 11),
+(1, 12),
+(1, 13),
+(1, 14),
+(1, 15),
+(1, 16),
+(1, 17),
+(1, 18),
+(1, 19),
+(1, 20),
+
+(2, 1),
+(2, 4),
+(2, 8),
+(2, 10),
+(2, 16),
+
+(3, 1),
+(3, 2),
+(3, 3),
+(3, 6),
+(3, 7),
+
+(4, 1),
+(4, 3),
+(4, 6),
+(4, 7),
+(4, 20),
+
+(5, 8),
+(5, 9),
+(5, 10),
+(5, 11),
+(5, 12),
+
+(6, 14),
+(6, 15),
+(6, 16),
+(6, 17),
+(6, 18),
+
+(7, 4),
+(7, 5),
+(7, 8),
+(7, 9),
+(7, 19),
+
+(8, 1),
+(8, 2),
+(8, 3),
+(8, 10),
+(8, 11);
+
+SELECT
+    genre,
+    SUM(box_office_collection) AS total_collection
+FROM movies
+GROUP BY genre
+HAVING SUM(box_office_collection) > 10
+ORDER BY total_collection DESC;
+
+-- Users with combined playlist duration greater than 72000 seconds (i used 4000 seconds)--
+SELECT
+    p.user_id,
+    SUM(s.duration_seconds) AS total_duration
+FROM playlists AS p
+JOIN playlist_songs AS ps
+    ON p.playlist_id = ps.playlist_id
+JOIN songs AS s
+    ON ps.song_id = s.song_id
+GROUP BY p.user_id
+HAVING SUM(s.duration_seconds) > 4000
+ORDER BY total_duration DESC;
