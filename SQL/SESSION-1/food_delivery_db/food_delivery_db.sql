@@ -289,4 +289,20 @@ SELECT
     COUNT(order_id) AS total_orders,
     ROUND(AVG(total_amount), 2) AS average_order_value,
     MAX(total_amount) AS highest_order_value
+FROM orders;
+
+-- SESSION-7 --
+
+select * from orders;
+
+SELECT
+    customer_id,
+    COUNT(order_id) AS total_orders
 FROM orders
+GROUP BY customer_id;
+
+SELECT
+    payment_method,
+    SUM(amount) AS total_amount_spent
+FROM payments
+GROUP BY payment_method;
