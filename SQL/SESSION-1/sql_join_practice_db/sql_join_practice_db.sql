@@ -112,3 +112,97 @@ GROUP BY
     cs.segment_id,
     cs.segment_name
 ORDER BY u.user_id;
+
+-- SESSION-9 --
+
+CREATE TABLE influencers (
+    influencer_id INT PRIMARY KEY,
+    influencer_name VARCHAR(100),
+    city VARCHAR(100)
+);
+
+CREATE TABLE brands (
+    brand_id INT PRIMARY KEY,
+    brand_name VARCHAR(100),
+    city VARCHAR(100)
+);
+
+INSERT INTO influencers VALUES
+(1, 'Aarav Patel', 'Ahmedabad'),
+(2, 'Diya Shah', 'Mumbai'),
+(3, 'Kabir Mehta', 'Delhi');
+
+INSERT INTO brands VALUES
+(1, 'Brand A', 'Ahmedabad'),
+(2, 'Brand B', 'Surat'),
+(3, 'Brand C', 'Delhi');
+
+-- PLAYLISTS
+CREATE TABLE playlists (
+    id INT PRIMARY KEY,
+    playlist_name VARCHAR(100),
+    parent_playlist_id INT NULL
+);
+
+-- OFFERS
+CREATE TABLE offers (
+    offer_id INT PRIMARY KEY,
+    offer_title VARCHAR(150)
+);
+
+INSERT INTO offers VALUES
+(1, '10% Off on Electronics'),
+(2, 'Free Delivery'),
+(3, 'Special Fashion Discount');
+
+-- EMPLOYEES
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    manager_id INT NULL
+);
+
+INSERT INTO employees VALUES
+(1, 'Meera', NULL),
+(2, 'Raj', 1),
+(3, 'Anjali', 1),
+(4, 'Dev', 2),
+(5, 'Kiran', NULL);
+
+
+-- SESSION-9 --
+
+-- FULL OUTER JOIN using LEFT JOIN, RIGHT JOIN and UNION
+SELECT
+    i.influencer_name,
+    b.brand_name,
+    i.city
+FROM influencers AS i
+LEFT JOIN brands AS b
+    ON i.city = b.city;
+    
+SELECT
+    i.influencer_name,
+    b.brand_name,
+    b.city
+FROM influencers AS i
+RIGHT JOIN brands AS b
+    ON i.city = b.city
+WHERE i.influencer_id IS NULL;
+
+-- SELF JOIN for nested playlists
+SELECT
+    child.playlist_name AS playlist_name,
+    parent.playlist_name AS parent_playlist_name
+FROM playlists AS child
+LEFT JOIN playlists AS parent
+    ON child.parent_playlist_id = parent.id
+ORDER BY child.id;
+
+-- CROSS JOIN for personalized offers
+SELECT
+    u.username,
+    o.offer_title
+FROM users AS u
+CROSS JOIN offers AS o
+ORDER BY u.user_id, o.offer_id;
