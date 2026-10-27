@@ -59,3 +59,15 @@ SELECT name, sold_count
 FROM products
 ORDER BY sold_count DESC
 LIMIT 10;
+
+-- Products with their category's average price --
+SELECT
+    p1.product_name,
+    p1.product_price,
+    p1.product_category,
+    (
+        SELECT AVG(p2.product_price)
+        FROM product_db.products AS p2
+        WHERE p2.product_category = p1.product_category
+    ) AS avg_category_price
+FROM product_db.products AS p1;

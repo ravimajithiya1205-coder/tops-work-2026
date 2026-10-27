@@ -306,3 +306,24 @@ SELECT
     SUM(amount) AS total_amount_spent
 FROM payments
 GROUP BY payment_method;
+
+-- SESSION-11 --
+
+USE food_delivery_db;
+
+SELECT restaurant_name, rating
+FROM food_delivery_db.restaurants
+WHERE rating > (
+    SELECT AVG(rating)
+    FROM food_delivery_db.restaurants
+);
+
+
+-- SESSION-11 --
+
+SELECT DISTINCT customer_id
+FROM food_delivery_db.orders
+WHERE total_amount > (
+    SELECT AVG(total_amount)
+    FROM food_delivery_db.orders
+);
