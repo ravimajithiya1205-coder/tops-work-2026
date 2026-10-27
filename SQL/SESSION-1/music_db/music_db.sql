@@ -391,6 +391,7 @@ VALUES
 (8, 10),
 (8, 11);
 
+-- Genres with total box office collection above 10 crore --
 SELECT
     genre,
     SUM(box_office_collection) AS total_collection
@@ -411,3 +412,56 @@ JOIN songs AS s
 GROUP BY p.user_id
 HAVING SUM(s.duration_seconds) > 4000
 ORDER BY total_duration DESC;
+
+-- SESSION-11 --
+
+USE music_streaming_db;
+
+CREATE TABLE subquery_practice_users (
+    user_id INT PRIMARY KEY,
+    username VARCHAR(100)
+);
+
+CREATE TABLE subquery_practice_playlists (
+    playlist_id INT PRIMARY KEY,
+    user_id INT,
+    playlist_name VARCHAR(100)
+);
+
+INSERT INTO subquery_practice_users (user_id, username)
+VALUES
+(1, 'Ravi'),
+(2, 'Priya'),
+(3, 'Amit'),
+(4, 'Neha');
+
+INSERT INTO subquery_practice_playlists
+    (playlist_id, user_id, playlist_name)
+VALUES
+(101, 1, 'My Favorites'),
+(102, 1, 'Workout Music'),
+(103, 1, 'Chill Songs'),
+(104, 2, 'Pop Hits'),
+(105, 2, 'Romantic Songs'),
+(106, 3, 'Punjabi Hits');
+
+SELECT
+    u.username,
+    p.playlist_count
+FROM music_streaming_db.subquery_practice_users AS u
+JOIN (
+    SELECT
+        user_id,
+        COUNT(*) AS playlist_count
+    FROM music_streaming_db.subquery_practice_playlists
+    GROUP BY user_id
+) AS p
+    ON u.user_id = p.user_id
+WHERE p.playlist_count > (
+    SELECT AVG(user_playlist_count)
+    FROM (
+        SELECT COUNT(*) AS user_playlist_count
+        FROM music_streaming_db.subquery_practice_playlists
+        GROUP BY user_id
+    ) AS playlist_counts
+);
