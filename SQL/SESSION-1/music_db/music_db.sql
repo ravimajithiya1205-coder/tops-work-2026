@@ -465,3 +465,74 @@ WHERE p.playlist_count > (
         GROUP BY user_id
     ) AS playlist_counts
 );
+
+-- SESSION-13 --
+
+USE music_streaming_db;
+
+CREATE TABLE window_playlist_practice (
+    song_id INT PRIMARY KEY,
+    user_id INT,
+    duration_sec INT
+);
+
+INSERT INTO window_playlist_practice
+    (song_id, user_id, duration_sec)
+VALUES
+    (1, 101, 210),
+    (2, 101, 180),
+    (3, 101, 240),
+    (4, 102, 200),
+    (5, 102, 190),
+    (6, 103, 250),
+    (7, 103, 220),
+    (8, 104, 180),
+    (9, 104, 210),
+    (10, 104, 240);
+    
+SELECT
+    song_id,
+    user_id,
+    duration_sec,
+    SUM(duration_sec) OVER (
+        PARTITION BY user_id
+    ) AS total_duration_sec
+FROM music_streaming_db.window_playlist_practice
+ORDER BY user_id, song_id;
+
+USE music_streaming_db;
+
+CREATE TABLE window_movie_ratings_practice (
+    rating_id INT PRIMARY KEY,
+    user_id INT,
+    movie_name VARCHAR(100),
+    rating DECIMAL(2,1)
+);
+
+INSERT INTO window_movie_ratings_practice
+    (rating_id, user_id, movie_name, rating)
+VALUES
+    (1, 101, 'Movie A', 4.0),
+    (2, 102, 'Movie A', 5.0),
+    (3, 103, 'Movie A', 3.0),
+    (4, 101, 'Movie B', 4.5),
+    (5, 102, 'Movie B', 3.5),
+    (6, 104, 'Movie B', 5.0),
+    (7, 103, 'Movie C', 4.0),
+    (8, 104, 'Movie C', 2.0),
+    (9, 105, 'Movie C', 5.0),
+    (10, 101, 'Movie C', 3.0);
+    
+SELECT
+    rating_id,
+    user_id,
+    movie_name,
+    rating,
+    AVG(rating) OVER (
+        PARTITION BY movie_name
+    ) AS movie_avg_rating,
+    rating - AVG(rating) OVER (
+        PARTITION BY movie_name
+    ) AS rating_difference
+FROM music_streaming_db.window_movie_ratings_practice
+ORDER BY movie_name, rating_id;
