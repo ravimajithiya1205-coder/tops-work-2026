@@ -327,3 +327,109 @@ WHERE total_amount > (
     SELECT AVG(total_amount)
     FROM food_delivery_db.orders
 );
+
+-- SESSION-13 --
+
+USE food_delivery_db;
+
+CREATE TABLE window_orders_practice (
+    order_id INT PRIMARY KEY,
+    user_id INT,
+    order_amount DECIMAL(10,2),
+    app_name VARCHAR(50)
+);
+
+INSERT INTO window_orders_practice
+    (order_id, user_id, order_amount, app_name)
+VALUES
+    (101, 1, 250.00, 'Zomato'),
+    (102, 2, 450.00, 'Swiggy'),
+    (103, 1, 300.00, 'Flipkart'),
+    (104, 3, 150.00, 'Zomato'),
+    (105, 2, 600.00, 'Swiggy'),
+    (106, 4, 350.00, 'Flipkart'),
+    (107, 3, 200.00, 'Zomato'),
+    (108, 1, 500.00, 'Swiggy'),
+    (109, 4, 400.00, 'Flipkart'),
+    (110, 2, 300.00, 'Zomato');
+    
+    SELECT
+    order_id,
+    user_id,
+    order_amount,
+    app_name,
+    SUM(order_amount) OVER() AS total_order_amount
+FROM food_delivery_db.window_orders_practice;
+
+SELECT
+    user_id,
+    order_id,
+    order_amount,
+    AVG(order_amount) OVER (
+        PARTITION BY user_id
+    ) AS user_avg_order_amount
+FROM food_delivery_db.window_orders_practice
+ORDER BY user_id, order_id;
+
+WITH CityAverageRatings AS (
+    SELECT
+        city,
+        AVG(rating) AS avg_rating
+    FROM food_delivery_db.restaurants
+    GROUP BY city
+)
+SELECT
+    r.restaurant_name,
+    r.city,
+    r.rating,
+    c.avg_rating
+FROM food_delivery_db.restaurants AS r
+JOIN CityAverageRatings AS c
+    ON r.city = c.city
+WHERE c.avg_rating > 4.0;
+
+USE food_delivery_db;
+
+CREATE TABLE cte_ipl_matches_practice (
+    match_id INT PRIMARY KEY,
+    team VARCHAR(100),
+    runs INT,
+    match_year INT
+);
+
+INSERT INTO cte_ipl_matches_practice
+    (match_id, team, runs, match_year)
+VALUES
+    (1, 'Chennai Super Kings', 210, 2023),
+    (2, 'Chennai Super Kings', 195, 2023),
+    (3, 'Chennai Super Kings', 220, 2023),
+    (4, 'Mumbai Indians', 230, 2023),
+    (5, 'Mumbai Indians', 205, 2023),
+    (6, 'Mumbai Indians', 190, 2023),
+    (7, 'Gujarat Titans', 180, 2023),
+    (8, 'Gujarat Titans', 215, 2023),
+    (9, 'Rajasthan Royals', 175, 2023),
+    (10, 'Chennai Super Kings', 200, 2022);
+    
+WITH TeamTotalRuns AS (
+    SELECT
+        team,
+        SUM(runs) AS total_runs
+    FROM food_delivery_db.cte_ipl_matches_practice
+    WHERE match_year = 2023
+    GROUP BY team
+)
+SELECT team, total_runs
+FROM TeamTotalRuns
+WHERE total_runs > 2000
+ORDER BY total_runs DESC;
+
+UPDATE food_delivery_db.cte_ipl_matches_practice
+SET runs = 800
+WHERE team = 'Chennai Super Kings'
+  AND match_id IN (1, 2, 3);
+
+UPDATE food_delivery_db.cte_ipl_matches_practice
+SET runs = 800
+WHERE team = 'Mumbai Indians'
+  AND match_id IN (4, 5, 6);

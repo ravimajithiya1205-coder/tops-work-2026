@@ -466,6 +466,34 @@ WHERE p.playlist_count > (
     ) AS playlist_counts
 );
 
+-- SESSION-12 --
+
+USE music_streaming_db;
+
+CREATE TABLE cte_spotify_artists_practice (
+    artist_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    followers BIGINT
+);INSERT INTO cte_spotify_artists_practice
+    (artist_id, name, followers)
+VALUES
+    (1, 'Arijit Singh', 45000000),
+    (2, 'Taylor Swift', 110000000),
+    (3, 'The Weeknd', 95000000),
+    (4, 'Ed Sheeran', 85000000),
+    (5, 'Adele', 60000000);
+    
+WITH TopArtists AS (
+    SELECT artist_id, name, followers
+    FROM music_streaming_db.cte_spotify_artists_practice
+    ORDER BY followers DESC
+    LIMIT 3
+)
+SELECT *
+FROM TopArtists;
+
+
+
 -- SESSION-13 --
 
 USE music_streaming_db;
