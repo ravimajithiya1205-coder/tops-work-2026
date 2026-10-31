@@ -629,3 +629,27 @@ SELECT
         ORDER BY rating DESC
     ) AS movie_rank
 FROM music_streaming_db.window_movies_practice;
+
+-- SESSION-15 --
+-- Find users who haven't logged in for more than 30 days --
+USE music_streaming_db;
+
+CREATE TABLE date_app_logins_practice (
+    user_id INT,
+    last_login_date DATE
+);
+
+INSERT INTO date_app_logins_practice
+    (user_id, last_login_date)
+VALUES
+    (101, DATE_SUB(CURDATE(), INTERVAL 10 DAY)),
+    (102, DATE_SUB(CURDATE(), INTERVAL 35 DAY)),
+    (103, DATE_SUB(CURDATE(), INTERVAL 45 DAY)),
+    (104, DATE_SUB(CURDATE(), INTERVAL 20 DAY)),
+    (105, DATE_SUB(CURDATE(), INTERVAL 60 DAY));
+    
+SELECT
+    user_id,
+    last_login_date
+FROM music_streaming_db.date_app_logins_practice
+WHERE DATEDIFF(NOW(), last_login_date) > 30;
