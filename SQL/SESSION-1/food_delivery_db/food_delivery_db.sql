@@ -529,3 +529,45 @@ SELECT
     DATE_SUB(delivery_date, INTERVAL 2 DAY)
         AS expected_pickup_date
 FROM food_delivery_db.date_deliveries_practice;
+
+-- SESSION-16 --
+
+USE food_delivery_db;
+ -- Combine first name and last name using CONCAT() --
+CREATE TABLE string_users_practice (
+    user_id INT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50)
+);
+
+INSERT INTO string_users_practice
+VALUES
+(1, 'Ravi', 'Majithiya'),
+(2, 'Amit', 'Patel'),
+(3, 'Priya', 'Shah'),
+(4, 'Neha', 'Joshi');
+
+SELECT
+    CONCAT(first_name, ' ', last_name) AS full_name
+FROM food_delivery_db.string_users_practice;
+
+USE food_delivery_db;
+
+-- Remove leading and trailing spaces using TRIM()--
+CREATE TABLE string_food_items_practice (
+    item_id INT PRIMARY KEY,
+    item_code VARCHAR(50)
+);
+
+INSERT INTO string_food_items_practice
+VALUES
+(1, '  FD101'),
+(2, 'FD102  '),
+(3, '  FD103  '),
+(4, 'FD104'),
+(5, '   FD105   ');
+
+SELECT
+    item_code,
+    TRIM(item_code) AS clean_item_code
+FROM food_delivery_db.string_food_items_practice;

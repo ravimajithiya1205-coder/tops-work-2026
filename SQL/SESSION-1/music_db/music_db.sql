@@ -653,3 +653,47 @@ SELECT
     last_login_date
 FROM music_streaming_db.date_app_logins_practice
 WHERE DATEDIFF(NOW(), last_login_date) > 30;
+
+-- SESSION-16 --
+
+USE music_streaming_db;
+-- Convert song titles into uppercase using UPPER()--
+CREATE TABLE string_playlists_practice (
+    song_id INT PRIMARY KEY,
+    song_title VARCHAR(150)
+);
+
+INSERT INTO string_playlists_practice
+VALUES
+(1, 'Tum Hi Ho'),
+(2, 'Kesariya'),
+(3, 'Perfect'),
+(4, 'Shape of You'),
+(5, 'Blinding Lights');
+
+SELECT
+    song_title,
+    UPPER(song_title) AS uppercase_title
+FROM music_streaming_db.string_playlists_practice;
+
+-- Extract the last 7 characters using RIGHT()--
+
+USE music_streaming_db;
+
+CREATE TABLE string_movies_practice (
+    movie_id INT PRIMARY KEY,
+    imdb_id VARCHAR(20)
+);
+
+INSERT INTO string_movies_practice
+VALUES
+(1, 'tt1234567'),
+(2, 'tt9876543'),
+(3, 'tt7654321'),
+(4, 'tt4567890'),
+(5, 'tt1122334');
+
+SELECT
+    imdb_id,
+    RIGHT(imdb_id, 7) AS movie_number
+FROM music_streaming_db.string_movies_practice;

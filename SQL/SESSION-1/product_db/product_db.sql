@@ -150,3 +150,25 @@ SELECT
     end_date,
     DATEDIFF(end_date, start_date) AS subscription_days
 FROM product_db.date_subscriptions_practice;
+
+-- SESSION-16 --
+
+USE product_db;
+-- Replace dashes with underscores using REPLACE()
+CREATE TABLE string_products_practice (
+    product_id INT PRIMARY KEY,
+    sku_code VARCHAR(50)
+);
+
+INSERT INTO string_products_practice
+VALUES
+(1, 'MOB-123-XY'),
+(2, 'LAP-456-AB'),
+(3, 'KEY-789-CD'),
+(4, 'MOU-321-EF'),
+(5, 'TAB-654-GH');
+
+SELECT
+    sku_code,
+    REPLACE(sku_code, '-', '_') AS updated_sku_code
+FROM product_db.string_products_practice;
