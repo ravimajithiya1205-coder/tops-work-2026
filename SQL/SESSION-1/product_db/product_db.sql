@@ -124,3 +124,4 @@ WITH RECURSIVE CalendarDays AS (
 )
 SELECT day_date
 FROM CalendarDays;
+    

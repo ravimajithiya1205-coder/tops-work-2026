@@ -564,3 +564,68 @@ SELECT
     ) AS rating_difference
 FROM music_streaming_db.window_movie_ratings_practice
 ORDER BY movie_name, rating_id;
+
+-- SESSION-14 --
+
+USE music_streaming_db;
+
+CREATE TABLE window_songs_practice (
+    song_id INT PRIMARY KEY,
+    artist VARCHAR(100),
+    streams BIGINT
+);
+
+INSERT INTO window_songs_practice
+    (song_id, artist, streams)
+VALUES
+    (1, 'Arijit Singh', 500000),
+    (2, 'Arijit Singh', 800000),
+    (3, 'Arijit Singh', 800000),
+    (4, 'Arijit Singh', 300000),
+    (5, 'Taylor Swift', 900000),
+    (6, 'Taylor Swift', 700000),
+    (7, 'Taylor Swift', 900000),
+    (8, 'Ed Sheeran', 600000),
+    (9, 'Ed Sheeran', 400000),
+    (10, 'Ed Sheeran', 200000);
+    
+SELECT
+    song_id,
+    artist,
+    streams,
+    RANK() OVER (
+        PARTITION BY artist
+        ORDER BY streams DESC
+    ) AS song_rank
+FROM music_streaming_db.window_songs_practice;
+
+
+CREATE TABLE window_movies_practice (
+    movie_id INT PRIMARY KEY,
+    genre VARCHAR(50),
+    rating DECIMAL(3,1)
+);
+
+INSERT INTO window_movies_practice
+    (movie_id, genre, rating)
+VALUES
+    (1, 'Action', 9.0),
+    (2, 'Action', 8.5),
+    (3, 'Action', 9.0),
+    (4, 'Action', 7.5),
+    (5, 'Comedy', 8.0),
+    (6, 'Comedy', 7.0),
+    (7, 'Comedy', 8.5),
+    (8, 'Drama', 9.5),
+    (9, 'Drama', 8.5),
+    (10, 'Drama', 9.5);
+    
+SELECT
+    movie_id,
+    genre,
+    rating,
+    DENSE_RANK() OVER (
+        PARTITION BY genre
+        ORDER BY rating DESC
+    ) AS movie_rank
+FROM music_streaming_db.window_movies_practice;
