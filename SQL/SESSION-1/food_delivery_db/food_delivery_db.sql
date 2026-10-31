@@ -433,3 +433,61 @@ UPDATE food_delivery_db.cte_ipl_matches_practice
 SET runs = 800
 WHERE team = 'Mumbai Indians'
   AND match_id IN (4, 5, 6);
+  
+  -- SESSION-14 --
+  
+SELECT
+    order_id,
+    customer_id AS user_id,
+    order_date,
+    total_amount,
+    ROW_NUMBER() OVER (
+        PARTITION BY customer_id
+        ORDER BY order_date DESC
+    ) AS row_num
+FROM food_delivery_db.orders;
+
+USE food_delivery_db;
+
+-- Display the top 3 influencers per platform using ROW_NUMBER()
+CREATE TABLE window_influencers_practice (
+    id INT PRIMARY KEY,
+    platform VARCHAR(50),
+    followers BIGINT
+);
+
+INSERT INTO window_influencers_practice
+    (id, platform, followers)
+VALUES
+    (1, 'Instagram', 500000),
+    (2, 'Instagram', 900000),
+    (3, 'Instagram', 700000),
+    (4, 'Instagram', 300000),
+    (5, 'YouTube', 1000000),
+    (6, 'YouTube', 800000),
+    (7, 'YouTube', 600000),
+    (8, 'YouTube', 400000),
+    (9, 'Facebook', 300000),
+    (10, 'Facebook', 600000),
+    (11, 'Facebook', 450000),
+    (12, 'Facebook', 200000);
+    
+WITH InfluencerRanking AS (
+    SELECT
+        id,
+        platform,
+        followers,
+        ROW_NUMBER() OVER (
+            PARTITION BY platform
+            ORDER BY followers DESC
+        ) AS row_num
+    FROM food_delivery_db.window_influencers_practice
+)
+SELECT
+    id,
+    platform,
+    followers,
+    row_num
+FROM InfluencerRanking
+WHERE row_num <= 3
+ORDER BY platform, row_num;
