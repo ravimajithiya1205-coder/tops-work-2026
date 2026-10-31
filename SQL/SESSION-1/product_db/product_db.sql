@@ -124,4 +124,29 @@ WITH RECURSIVE CalendarDays AS (
 )
 SELECT day_date
 FROM CalendarDays;
+
+-- SESSION-15 --
+
+USE product_db;
+
+CREATE TABLE date_subscriptions_practice (
+    user_id INT,
+    start_date DATE,
+    end_date DATE
+);
+
+INSERT INTO date_subscriptions_practice
+    (user_id, start_date, end_date)
+VALUES
+    (101, '2026-01-01', '2026-01-31'),
+    (102, '2026-02-01', '2026-03-01'),
+    (103, '2026-03-10', '2026-04-10'),
+    (104, '2026-05-01', '2026-05-15'),
+    (105, '2026-06-01', '2026-07-01');
     
+SELECT
+    user_id,
+    start_date,
+    end_date,
+    DATEDIFF(end_date, start_date) AS subscription_days
+FROM product_db.date_subscriptions_practice;

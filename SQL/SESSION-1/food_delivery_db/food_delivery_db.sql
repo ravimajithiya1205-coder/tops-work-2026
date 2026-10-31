@@ -491,3 +491,41 @@ SELECT
 FROM InfluencerRanking
 WHERE row_num <= 3
 ORDER BY platform, row_num;
+
+-- SESSION-15 --
+-- Display the current date and time using NOW()
+USE food_delivery_db;
+
+SELECT NOW() AS CurrentDateTime;
+
+-- Display year, month, and day from each order date
+SELECT
+    order_id,
+    order_date,
+    YEAR(order_date) AS order_year,
+    MONTH(order_date) AS order_month,
+    DAY(order_date) AS order_day
+FROM food_delivery_db.orders;
+
+-- Calculate expected pickup date (2 days before delivery)
+
+CREATE TABLE date_deliveries_practice (
+    delivery_id INT PRIMARY KEY,
+    delivery_date DATE
+);
+
+INSERT INTO date_deliveries_practice
+    (delivery_id, delivery_date)
+VALUES
+    (1, '2026-10-30'),
+    (2, '2026-11-05'),
+    (3, '2026-11-10'),
+    (4, '2026-11-15'),
+    (5, '2026-11-20');
+    
+SELECT
+    delivery_id,
+    delivery_date,
+    DATE_SUB(delivery_date, INTERVAL 2 DAY)
+        AS expected_pickup_date
+FROM food_delivery_db.date_deliveries_practice;
