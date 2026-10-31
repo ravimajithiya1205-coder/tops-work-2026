@@ -1,0 +1,12 @@
+[
+    {
+        "customer_name": "Shraddha",
+        "items": [
+            "Samosa",
+            "Bhel",
+            "Momos"
+        ],
+        "total_amount": 201.0,
+        "order_status": "Delivered"
+    }
+]
