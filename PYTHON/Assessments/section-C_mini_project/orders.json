@@ -1,0 +1,24 @@
+[
+    {
+        "order_id": "ORD001",
+        "customer_name": "Ravi Majithiya",
+        "items": [
+            "Samosa",
+            "Idali",
+            "Bhel"
+        ],
+        "total_amount": 251.0,
+        "status": "On the Way"
+    },
+    {
+        "order_id": "ORD002",
+        "customer_name": "Shraddha Majithiya",
+        "items": [
+            "Pizza",
+            "Thums-up",
+            "Paneer Pocket"
+        ],
+        "total_amount": 547.0,
+        "status": "Delivered"
+    }
+]
